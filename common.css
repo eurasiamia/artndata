@@ -84,43 +84,64 @@ a:focus-visible, button:focus-visible, input:focus-visible{ outline: 2px solid v
   font-size: 0.86rem;
   padding-top: 0.3rem;
 }
-.sidebar-nav a,
-.sidebar-nav .nav-group-label,
-.sidebar-nav .nav-sub-label{
+.sidebar-nav a{
   display: block;
   padding: 0.3rem 0;
-  color: var(--ink);
+  color: var(--ink-soft);
   white-space: nowrap;
 }
-.sidebar-nav a{ color: var(--ink-soft); }
 .sidebar-nav a:hover,
 .sidebar-nav a.is-current{ color: var(--accent); }
-.nav-group-label{ font-weight: 700; margin-top: 0.9rem; }
-.nav-group-label:first-child{ margin-top: 0; }
+
+/* "소개"는 눌러야 펼쳐지는 드롭다운 — 지금 보고 있는 섹션이면 처음부터 펼쳐져 있다 */
+.nav-group{ margin-top: 0.9rem; }
+.nav-group:first-child{ margin-top: 0; }
+.nav-group-label,
+.nav-sub-label{
+  display: block;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.3rem 0;
+  white-space: nowrap;
+}
+.nav-group-label::-webkit-details-marker,
+.nav-sub-label::-webkit-details-marker{ display: none; }
+.nav-group-label{ font-weight: 700; color: var(--ink); }
 .nav-group-label.is-current{ color: var(--accent); }
 .nav-sub-label{ font-weight: 500; color: var(--ink-soft); margin-top: 0.2rem; }
 .nav-sub-label.is-current{ color: var(--accent); }
-.nav-subgroup{ display: flex; flex-direction: column; margin-left: 0.8rem; }
-.nav-subgroup a{ margin-left: 0.5rem; font-size: 0.82rem; }
+.nav-group-label::after,
+.nav-sub-label::after{
+  content: "▸";
+  display: inline-block;
+  margin-left: 0.4em;
+  font-size: 0.65em;
+  color: var(--ink-faint);
+  transition: transform 0.15s;
+}
+.nav-group[open] > .nav-group-label::after,
+.nav-subgroup[open] > .nav-sub-label::after{ transform: rotate(90deg); }
+
+.nav-group-body{ display: flex; flex-direction: column; }
+.nav-subgroup{ margin-left: 0.8rem; }
+.nav-subgroup-body{ display: flex; flex-direction: column; margin-left: 0.8rem; }
+.nav-subgroup-body a{ margin-left: 0.5rem; font-size: 0.82rem; }
+
 .nav-top-link{ font-weight: 700; margin-top: 0.9rem; color: var(--ink) !important; }
 .nav-top-link:hover,
 .nav-top-link.is-current{ color: var(--accent) !important; }
 
 @media (max-width: 700px){
   .site-shell{ flex-direction: column; }
+  /* 좁은 화면에서는 2단 배치 대신, 데스크톱과 같은 세로 트리를 그대로 위에 쌓는다
+     (가로로 접으면 항목끼리 줄이 엇갈려 보기 어려웠다). */
   .sidebar-nav{
     position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0 1rem;
     width: 100%;
-    padding-bottom: 0.4rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.4rem;
     border-bottom: 1px solid var(--line);
   }
-  .nav-group-label{ margin-top: 0; }
-  .nav-subgroup{ flex-direction: row; flex-wrap: wrap; gap: 0 0.8rem; margin-left: 0; }
-  .nav-subgroup a{ margin-left: 0; }
 }
 
 /* ---- section heading row ---- */
