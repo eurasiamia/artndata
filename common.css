@@ -48,90 +48,79 @@ a:focus-visible, button:focus-visible, input:focus-visible{ outline: 2px solid v
 .mono{ font-family: ui-monospace, Menlo, 'SF Mono', monospace; }
 
 .wrap{
-  max-width: 880px;
-  margin: 0 auto;
-  padding: clamp(1.4rem, 4vw, 2.2rem) clamp(1.1rem, 4vw, 1.6rem) 4rem;
+  padding: clamp(1.2rem, 4vw, 1.8rem) 0 4rem;
   display: flex;
   flex-direction: column;
   gap: 2.6rem;
 }
 
-/* ---- site header ---- */
-.site-header{
-  padding: clamp(1.4rem, 4vw, 2rem) clamp(1.1rem, 4vw, 1.6rem) 0;
-  max-width: 880px;
-  margin: 0 auto;
-}
-.header-top{
+/* ---- page shell: 왼쪽 사이드바 메뉴 + 오른쪽 본문 ---- */
+.site-shell{
   display: flex;
-  align-items: center;
-  gap: clamp(1rem, 3vw, 1.8rem);
-  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: clamp(1.6rem, 4vw, 3rem);
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: clamp(1.4rem, 4vw, 2rem) clamp(1.1rem, 4vw, 1.6rem) 0;
 }
+.main-col{ flex: 1 1 auto; min-width: 0; }
+
+/* ---- site header (본문 쪽 제목) ---- */
+.site-header{ padding-bottom: clamp(1.2rem, 4vw, 1.8rem); }
 .site-name{
   font-size: clamp(1.05rem, 2.2vw, 1.25rem);
   font-weight: 400;
   letter-spacing: -0.01em;
 }
 
-/* ---- site menu (제목 왼쪽, 상단 텍스트 메뉴) ---- */
-.site-menu-list{
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: 'IBM Plex Sans KR', sans-serif;
-  font-size: 0.86rem;
-}
-.site-menu-list .menu-link{
-  display: inline-block;
-  padding: 0.4rem 0.6rem;
-  color: var(--ink);
-  white-space: nowrap;
-}
-.site-menu-list .menu-link:hover,
-.site-menu-list .menu-link.is-current{ color: var(--accent); }
-
-.menu-item{ position: relative; }
-.menu-item > summary{
-  list-style: none;
-  cursor: pointer;
-  padding: 0.4rem 0.6rem;
-  color: var(--ink);
-  white-space: nowrap;
-}
-.menu-item > summary::-webkit-details-marker{ display: none; }
-.menu-item > summary::after{ content: " ▾"; font-size: 0.7em; color: var(--ink-faint); }
-.menu-item > summary:hover,
-.menu-item > summary.is-current{ color: var(--accent); }
-.menu-item .submenu{
+/* ---- sidebar menu (왼쪽, 세로) ---- */
+.sidebar-nav{
+  flex: 0 0 148px;
+  position: sticky;
+  top: clamp(1.4rem, 4vw, 2rem);
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 0.3rem;
-  padding: 0.4rem;
-  background: var(--card-bg);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  min-width: 9.5rem;
-  z-index: 20;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 0.86rem;
+  padding-top: 0.3rem;
 }
-.menu-item .submenu a,
-.menu-item .submenu summary{ padding: 0.45rem 0.6rem; border-radius: 4px; }
-.menu-item .submenu a:hover,
-.menu-item .submenu summary:hover{ color: var(--accent); background: var(--bg); }
-.menu-item.sub{ position: relative; }
-.menu-item.sub > .submenu{ position: static; margin: 0.1rem 0 0.2rem 0.8rem; border: none; padding: 0; background: none; }
+.sidebar-nav a,
+.sidebar-nav .nav-group-label,
+.sidebar-nav .nav-sub-label{
+  display: block;
+  padding: 0.3rem 0;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.sidebar-nav a{ color: var(--ink-soft); }
+.sidebar-nav a:hover,
+.sidebar-nav a.is-current{ color: var(--accent); }
+.nav-group-label{ font-weight: 700; margin-top: 0.9rem; }
+.nav-group-label:first-child{ margin-top: 0; }
+.nav-group-label.is-current{ color: var(--accent); }
+.nav-sub-label{ font-weight: 500; color: var(--ink-soft); margin-top: 0.2rem; }
+.nav-sub-label.is-current{ color: var(--accent); }
+.nav-subgroup{ display: flex; flex-direction: column; margin-left: 0.8rem; }
+.nav-subgroup a{ margin-left: 0.5rem; font-size: 0.82rem; }
+.nav-top-link{ font-weight: 700; margin-top: 0.9rem; color: var(--ink) !important; }
+.nav-top-link:hover,
+.nav-top-link.is-current{ color: var(--accent) !important; }
 
-@media (max-width: 620px){
-  .header-top{ align-items: flex-start; }
-  .site-menu-list{ flex-wrap: wrap; gap: 0.1rem 0.2rem; }
-  .menu-item .submenu{ position: static; margin-top: 0.1rem; }
+@media (max-width: 700px){
+  .site-shell{ flex-direction: column; }
+  .sidebar-nav{
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 1rem;
+    width: 100%;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-group-label{ margin-top: 0; }
+  .nav-subgroup{ flex-direction: row; flex-wrap: wrap; gap: 0 0.8rem; margin-left: 0; }
+  .nav-subgroup a{ margin-left: 0; }
 }
 
 /* ---- section heading row ---- */
@@ -271,7 +260,7 @@ a:focus-visible, button:focus-visible, input:focus-visible{ outline: 2px solid v
   font-family: 'IBM Plex Sans KR', sans-serif;
   font-size: 0.74rem;
   color: var(--ink-faint);
-  max-width: 880px;
+  max-width: 1040px;
   margin: 0 auto;
 }
 .site-footer a{ color: var(--ink-faint); border-bottom: 1px solid var(--line); }
