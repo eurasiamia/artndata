@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="아트앤데이터 소개 — 공연과 예술의 활동상을 온톨로지로 설계하고 데이터를 발행해 연구합니다. 예술에서 온 일(활동 내역)과 참여자를 소개합니다.">
+<title>아트앤데이터 · 소개</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <nav id="menu-mount" aria-label="주 메뉴"></nav>
+    <a class="site-name" href="index.html">아트앤데이터(ArtAndData), 정주영 아카이브</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="about-box" aria-labelledby="h-about" style="border-top:none;padding-top:0;">
+    <h2 id="h-about">아트앤데이터</h2>
+    <p>공연과 예술의 활동상을 온톨로지로 설계하고 데이터를 발행해 연구합니다. 연구와 감상, 아카이빙과 창작 그 어딘가에서 왔다갔다 합니다.</p>
+  </section>
+
+  <section aria-labelledby="h-did">
+    <div class="sec-head">
+      <h2 id="h-did">예술에서 온 일 <span class="prop mono">aad:did</span></h2>
+    </div>
+    <div id="did-list" class="list-plain"></div>
+  </section>
+
+  <section class="people-box" aria-labelledby="h-people">
+    <h2 id="h-people">참여자</h2>
+    <a class="people-row" href="person.html">
+      <span><b>정주영</b> <span style="color:var(--ink-soft);">· 설립자</span></span>
+      <span class="mono">aad:foundedBy</span>
+    </a>
+    <div class="people-row">
+      <span style="color:var(--ink-faint);">[연구원 이름] · 연구원</span>
+      <span class="mono">aad:hasMember</span>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <span class="label">연락</span>
+  <a href="mailto:rikayu@hanmail.net">rikayu@hanmail.net</a>
+  <a href="https://www.instagram.com/jooyoung_dyt" target="_blank" rel="noopener">@jooyoung_dyt</a>
+</footer>
+
+<script src="artData.js"></script>
+<script src="site-menu.js"></script>
+<script>
+  AAD_MENU.render('#menu-mount', 'about');
+
+  function linksHTML(links){
+    if (!links || !links.length) return "";
+    return '<div class="entry-links">' + links.map(function(l){
+      return '<a class="entry-link" href="' + l.url + '" target="_blank" rel="noopener">' + l.label + ' ↗</a>';
+    }).join("") + '</div>';
+  }
+  var didList = document.getElementById('did-list');
+  artData.forEach(function(item){
+    var row = document.createElement('div');
+    row.className = 'list-row';
+    row.innerHTML =
+      '<div class="entry-title">' + item.title + '</div>' +
+      '<div class="entry-meta">' + item.period + ' · ' + item.role + (item.org ? ' · ' + item.org : '') + '</div>' +
+      linksHTML(item.links);
+    didList.appendChild(row);
+  });
+</script>
+</body>
+</html>

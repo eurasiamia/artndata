@@ -10,11 +10,18 @@
 <body>
 
 <header class="site-header">
-  <div class="site-name">아트앤데이터(ArtAndData), 정주영 아카이브</div>
-  <nav id="nav-mount" aria-label="아트앤데이터 온톨로지 — 주 메뉴"></nav>
+  <div class="header-top">
+    <nav id="menu-mount" aria-label="주 메뉴"></nav>
+    <span class="site-name">아트앤데이터(ArtAndData), 정주영 아카이브</span>
+  </div>
 </header>
 
 <main class="wrap">
+
+  <section aria-labelledby="h-ont" class="ont-section">
+    <h2 id="h-ont" class="group-label" style="margin-top:0;">아트앤데이터 온톨로지</h2>
+    <div id="ont-mount"></div>
+  </section>
 
   <section aria-labelledby="h-zine">
     <div class="sec-head">
@@ -24,25 +31,32 @@
     <div id="zine-cards" class="card-grid"></div>
   </section>
 
-  <section aria-labelledby="h-did">
+  <section aria-labelledby="h-elsewhere">
     <div class="sec-head">
-      <h2 id="h-did">예술에서 온 일 <span class="prop mono">aad:did</span></h2>
-      <a class="more" href="activity.html">전체 보기 →</a>
+      <h2 id="h-elsewhere">일에서 그 어딘가로</h2>
+      <a class="more" href="elsewhere.html">전체 보기 →</a>
     </div>
-    <div id="did-list" class="list-plain"></div>
-  </section>
 
-  <section class="self-box" aria-labelledby="h-self">
-    <h2 id="h-self" style="margin:0;font-family:'IBM Plex Sans KR',sans-serif;font-size:1.05rem;font-weight:700;">일에서 그 어딘가로</h2>
-    <div class="self-grid">
-      <a class="self-link" href="actor.html">
-        <div class="title-row"><span class="name">배우 아카이브 — 설경구</span><span class="badge">진행 중</span></div>
-        <span class="mono" style="font-size:0.72rem;color:var(--ink-faint);">aad:archives</span>
-      </a>
-      <a class="self-link" href="webzine.html">
-        <div class="title-row"><span class="name">하루키 네트워크</span><span class="badge">준비 중</span></div>
-        <span class="mono" style="font-size:0.72rem;color:var(--ink-faint);">aad:describes</span>
-      </a>
+    <div class="list-row" style="border-top:1px solid var(--line);">
+      <div class="title-row" style="display:flex;align-items:center;gap:0.6rem;">
+        <span class="entry-title" style="font-size:1.15rem;">배우 아카이브 — 설경구</span>
+        <span class="badge">진행 중</span>
+      </div>
+      <div class="entry-note" style="font-family:'IBM Plex Sans KR',sans-serif;font-size:0.85rem;color:var(--ink-soft);line-height:1.7;max-width:34rem;">
+        무대에서 스크린까지, 설경구의 활동을 데이터로 정리하는 첫 번째 배우 아카이브 연재입니다. 공연·필모그래피·일화를 수집하고 있습니다. [준비 중]
+      </div>
+      <div class="mono" style="font-size:0.72rem;color:var(--ink-faint);">아트앤데이터가 아카이빙, 정주영이 큐레이션 (aad:archives, aad:curates)</div>
+    </div>
+
+    <div class="list-row">
+      <div class="title-row" style="display:flex;align-items:center;gap:0.6rem;">
+        <span class="entry-title" style="font-size:1.15rem;">하루키 네트워크</span>
+        <span class="badge">준비 중</span>
+      </div>
+      <div class="entry-note" style="font-family:'IBM Plex Sans KR',sans-serif;font-size:0.85rem;color:var(--ink-soft);line-height:1.7;max-width:34rem;">
+        무라카미 하루키 소설 속 인물과 세계관 데이터를 네트워크로 그려보는 연재입니다.
+      </div>
+      <div class="mono" style="font-size:0.72rem;color:var(--ink-faint);">aad:explores</div>
     </div>
   </section>
 
@@ -56,23 +70,6 @@
     <div class="sub-note" id="sub-status"></div>
   </section>
 
-  <section class="about-box" aria-labelledby="h-about">
-    <h2 id="h-about">아트앤데이터</h2>
-    <p>공연과 예술의 활동상을 온톨로지로 설계하고 데이터를 발행해 연구합니다. 연구와 감상, 아카이빙과 창작 그 어딘가에서 왔다갔다 합니다.</p>
-  </section>
-
-  <section class="people-box" aria-labelledby="h-people">
-    <h2 id="h-people">참여자</h2>
-    <a class="people-row" href="person.html">
-      <span><b>정주영</b> <span style="color:var(--ink-soft);">· 설립자</span></span>
-      <span class="mono">aad:foundedBy</span>
-    </a>
-    <div class="people-row">
-      <span style="color:var(--ink-faint);">[연구원 이름] · 연구원</span>
-      <span class="mono">aad:hasMember</span>
-    </div>
-  </section>
-
 </main>
 
 <footer class="site-footer">
@@ -81,38 +78,15 @@
   <a href="https://www.instagram.com/jooyoung_dyt" target="_blank" rel="noopener">@jooyoung_dyt</a>
 </footer>
 
-<script src="artData.js"></script>
+<script src="d3.min.js"></script>
 <script src="ontology-nav.js"></script>
+<script src="site-menu.js"></script>
 <script src="webzine.js"></script>
 <script>
-  AAD_NAV.render('#nav-mount', 'main');
+  AAD_MENU.render('#menu-mount', 'main');
+  AAD_NAV.render('#ont-mount');
 
-  // 예술에서 온 일 — 대표 3개
-  var FEATURED_TITLES = [
-    "2025 국립극단 디지털 아카이브 신규 데이터",
-    "남산예술센터 디지털 아카이브 구축",
-    "1920년대 서울 북촌 극장 시맨틱 아카이브"
-  ];
-  function linksHTML(links){
-    if (!links || !links.length) return "";
-    return '<div class="entry-links">' + links.map(function(l){
-      return '<a class="entry-link" href="' + l.url + '" target="_blank" rel="noopener">' + l.label + ' ↗</a>';
-    }).join("") + '</div>';
-  }
-  var didList = document.getElementById('did-list');
-  FEATURED_TITLES.forEach(function(t){
-    var item = artData.filter(function(d){ return d.title === t; })[0];
-    if (!item) return;
-    var row = document.createElement('div');
-    row.className = 'list-row';
-    row.innerHTML =
-      '<div class="entry-title">' + item.title + '</div>' +
-      '<div class="entry-meta">' + item.period + ' · ' + item.role + (item.org ? ' · ' + item.org : '') + '</div>' +
-      linksHTML(item.links);
-    didList.appendChild(row);
-  });
-
-  // 데이터를 서술하기 — 카드 3개 (구글 시트 또는 안내용 예시)
+  // 데이터를 서술하기 — 카드 미리보기 (구글 시트 또는 안내용 예시)
   AAD_WEBZINE.fetchPosts(function(posts){
     var mount = document.getElementById('zine-cards');
     posts.slice(0, 4).forEach(function(p){

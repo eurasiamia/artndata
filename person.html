@@ -10,8 +10,10 @@
 <body>
 
 <header class="site-header">
-  <a class="site-name" href="index.html">아트앤데이터(ArtAndData), 정주영 아카이브</a>
-  <nav id="nav-mount" aria-label="아트앤데이터 온톨로지 — 주 메뉴"></nav>
+  <div class="header-top">
+    <nav id="menu-mount" aria-label="주 메뉴"></nav>
+    <a class="site-name" href="index.html">아트앤데이터(ArtAndData), 정주영 아카이브</a>
+  </div>
 </header>
 
 <main class="wrap">
@@ -54,9 +56,9 @@
 <script src="researchGroups.js"></script>
 <script src="theatreData.js"></script>
 <script src="yogaTrips.js"></script>
-<script src="ontology-nav.js"></script>
+<script src="site-menu.js"></script>
 <script>
-  AAD_NAV.render('#nav-mount', 'person-' + (location.hash ? location.hash.slice(1) : 'research'));
+  AAD_MENU.render('#menu-mount', 'person-' + (location.hash ? location.hash.slice(1) : 'research'));
 
   // 연구
   var rMount = document.getElementById('research-groups');

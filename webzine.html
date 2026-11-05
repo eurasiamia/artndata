@@ -28,8 +28,10 @@
 <body>
 
 <header class="site-header">
-  <a class="site-name" href="index.html">아트앤데이터(ArtAndData), 정주영 아카이브</a>
-  <nav id="nav-mount" aria-label="아트앤데이터 온톨로지 — 주 메뉴"></nav>
+  <div class="header-top">
+    <nav id="menu-mount" aria-label="주 메뉴"></nav>
+    <a class="site-name" href="index.html">아트앤데이터(ArtAndData), 정주영 아카이브</a>
+  </div>
 </header>
 
 <main class="wrap">
@@ -93,10 +95,10 @@
   <a href="https://www.instagram.com/jooyoung_dyt" target="_blank" rel="noopener">@jooyoung_dyt</a>
 </footer>
 
-<script src="ontology-nav.js"></script>
+<script src="site-menu.js"></script>
 <script src="webzine.js"></script>
 <script>
-  AAD_NAV.render('#nav-mount', 'webzine');
+  AAD_MENU.render('#menu-mount', 'webzine');
 
   function esc(s){ return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 
