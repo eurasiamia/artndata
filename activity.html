@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="아트앤데이터 활동 — 공연예술 디지털 아카이브 데이터 모델 설계 및 구축 프로젝트 목록.">
+<title>활동 · 아트앤데이터</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="site-name" href="index.html">아트앤데이터(ArtAndData), 정주영 아카이브</a>
+  <nav id="nav-mount" aria-label="아트앤데이터 온톨로지 — 주 메뉴"></nav>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="h-did">
+    <div class="sec-head">
+      <h2 id="h-did">예술에서 온 일 <span class="prop mono">aad:did</span></h2>
+    </div>
+    <div id="did-list" class="list-plain"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <span class="label">연락</span>
+  <a href="mailto:rikayu@hanmail.net">rikayu@hanmail.net</a>
+  <a href="https://www.instagram.com/jooyoung_dyt" target="_blank" rel="noopener">@jooyoung_dyt</a>
+</footer>
+
+<script src="artData.js"></script>
+<script src="ontology-nav.js"></script>
+<script>
+  AAD_NAV.render('#nav-mount', 'activity');
+
+  function linksHTML(links){
+    if (!links || !links.length) return "";
+    return '<div class="entry-links">' + links.map(function(l){
+      return '<a class="entry-link" href="' + l.url + '" target="_blank" rel="noopener">' + l.label + ' ↗</a>';
+    }).join("") + '</div>';
+  }
+  var didList = document.getElementById('did-list');
+  artData.forEach(function(item){
+    var row = document.createElement('div');
+    row.className = 'list-row';
+    row.innerHTML =
+      '<div class="entry-title">' + item.title + '</div>' +
+      '<div class="entry-meta">' + item.period + ' · ' + item.role + (item.org ? ' · ' + item.org : '') + '</div>' +
+      linksHTML(item.links);
+    didList.appendChild(row);
+  });
+</script>
+</body>
+</html>

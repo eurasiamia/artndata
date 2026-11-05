@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="정주영 — 연구, 극장(작가·연출), 요가. 아트앤데이터 설립자.">
+<title>정주영 · 아트앤데이터</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="site-name" href="index.html">아트앤데이터(ArtAndData), 정주영 아카이브</a>
+  <nav id="nav-mount" aria-label="아트앤데이터 온톨로지 — 주 메뉴"></nav>
+</header>
+
+<main class="wrap">
+
+  <section aria-labelledby="h-research" id="research">
+    <div class="sec-head">
+      <h2 id="h-research">연구 <span class="prop mono">aad:studied</span></h2>
+    </div>
+    <div id="research-groups"></div>
+  </section>
+
+  <section aria-labelledby="h-theatre" id="theatre">
+    <div class="sec-head">
+      <h2 id="h-theatre">극장 <span class="prop mono">aad:made</span></h2>
+    </div>
+    <div id="theatre-list"></div>
+  </section>
+
+  <section aria-labelledby="h-yoga" id="yoga">
+    <div class="sec-head">
+      <h2 id="h-yoga">요가 <span class="prop mono">aad:loves</span></h2>
+    </div>
+    <div class="list-row standalone" style="border-top:1px solid var(--line);">
+      <div class="entry-title">마이솔 수련</div>
+      <div class="entry-meta">2024.03 ~ 계속 (<a href="https://www.instagram.com/ashtanga_yoga_bucheon" target="_blank" rel="noopener">@부천아쉬탕가요가</a>)</div>
+      <div class="entry-note" style="font-family:'IBM Plex Sans KR',sans-serif;font-size:0.82rem;color:var(--ink-faint);">정해진 순서를 스스로의 호흡으로 반복해 나가는 아쉬탕가 마이솔 수련을 이어가고 있다.</div>
+    </div>
+    <div class="group-label">요가여행</div>
+    <div id="yoga-trips"></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <span class="label">연락</span>
+  <a href="mailto:rikayu@hanmail.net">rikayu@hanmail.net</a>
+  <a href="https://www.instagram.com/jooyoung_dyt" target="_blank" rel="noopener">@jooyoung_dyt</a>
+</footer>
+
+<script src="researchGroups.js"></script>
+<script src="theatreData.js"></script>
+<script src="yogaTrips.js"></script>
+<script src="ontology-nav.js"></script>
+<script>
+  AAD_NAV.render('#nav-mount', 'person-' + (location.hash ? location.hash.slice(1) : 'research'));
+
+  // 연구
+  var rMount = document.getElementById('research-groups');
+  researchGroups.forEach(function(group){
+    var label = document.createElement('div');
+    label.className = 'group-label';
+    label.textContent = group.label;
+    rMount.appendChild(label);
+    var list = document.createElement('div');
+    list.className = 'list-plain';
+    group.items.forEach(function(item){
+      var row = document.createElement('div');
+      row.className = 'list-row';
+      row.innerHTML =
+        '<div class="entry-title">' + item.title + '</div>' +
+        '<div class="entry-meta">' + item.org + ' · ' + item.period + '</div>';
+      list.appendChild(row);
+    });
+    rMount.appendChild(list);
+  });
+
+  // 극장
+  function tLinksHTML(links){
+    if (!links || !links.length) return "";
+    return '<div class="entry-links">' + links.map(function(l){
+      return '<a class="entry-link" href="' + l.url + '" target="_blank" rel="noopener">' + l.label + ' ↗</a>';
+    }).join("") + '</div>';
+  }
+  var tMount = document.getElementById('theatre-list');
+  theatreData.forEach(function(item){
+    var card = document.createElement('div');
+    card.className = 'theatre-card';
+    card.innerHTML =
+      (item.image ? '<img src="' + item.image + '" alt="' + item.title + '">' : '') +
+      '<div class="t-body">' +
+        '<div class="entry-title">' + item.title + '</div>' +
+        '<div class="entry-meta">' + item.period + ' · ' + item.role + (item.org ? ' · ' + item.org : '') + '</div>' +
+        (item.note ? '<div class="entry-note">' + item.note + '</div>' : '') +
+        tLinksHTML(item.links) +
+      '</div>';
+    tMount.appendChild(card);
+  });
+
+  // 요가여행
+  var yMount = document.getElementById('yoga-trips');
+  yogaTrips.forEach(function(trip){
+    var block = document.createElement('div');
+    block.className = 'trip-block';
+    var imgs = (trip.images || []).map(function(src){
+      return '<div class="gallery-item"><img src="' + src + '" alt="' + trip.title + '"></div>';
+    }).join('');
+    block.innerHTML = '<div class="entry-title">' + trip.title + '</div>' +
+      '<div class="gallery-grid trip-photos">' + imgs + '</div>';
+    yMount.appendChild(block);
+  });
+</script>
+</body>
+</html>
