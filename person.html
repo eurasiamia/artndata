@@ -78,7 +78,7 @@
       row.className = 'list-row';
       row.innerHTML =
         '<div class="entry-title">' + item.title + '</div>' +
-        '<div class="entry-meta">' + item.org + ' · ' + item.period + '</div>';
+        '<div class="entry-meta">' + item.org + (item.role ? ' · ' + item.role : '') + ' · ' + item.period + '</div>';
       list.appendChild(row);
     });
     rMount.appendChild(list);
